@@ -9,3 +9,13 @@ def get_def_user
   @user[:passwor] = "Password"
   return @user
 end
+
+def set_cookies(cookies, user)
+  cookies[:name] = user[:name]
+  cookies[:password] = user[:password]
+end
+
+def check_name(name)
+  @user = User.find_by_name(name)
+  return @user
+end

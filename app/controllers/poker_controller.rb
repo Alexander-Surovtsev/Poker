@@ -19,20 +19,13 @@ class PokerController < ApplicationController
 
   def register
     @user = User.new
-
     respond_to do |format|
       format.html
       format.json { render json: @user }
     end
   end
-  
-#  def check_Cookies
-#    @user = User.find_by_name_and_password(cookies[:name], cookies[:password])
-#    return @user
-#  end
 
   def tables
-    logger.info 'adfdsf'
     if (params[:user] != nil)
       @par = params[:user]
       @user = User.new
@@ -40,7 +33,7 @@ class PokerController < ApplicationController
       if (@par[:password_confirmation] != nil)
         if (@par[:password] == @par[:password_confirmation])
           @user[:password] = @par[:password]
-          usr = User.find_by_name(@par[:name])
+          usr = check_name(@par[:name])#User.find_by_name(@par[:name])
           if usr !=  nil
             respond_to do |format|
               format.html { redirect_to(poker_register_path, :notice => "Incorrect name")}
@@ -50,8 +43,7 @@ class PokerController < ApplicationController
           end
           respond_to do |format|
             if @user.save
-              cookies[:name] = @user[:name]
-              cookies[:password] = @user[:password]
+              set_cookies(cookies, @user)
               format.html { redirect_to(poker_tables_path, :notice => "You are loggin as #{@user[:name]}")}
               format.xml { head :ok}
             else
