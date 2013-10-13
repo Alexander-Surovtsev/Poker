@@ -1,0 +1,40 @@
+<h1>Poker#index</h1>
+
+<% if notice %>
+<id p = "notice">
+	<%= notice%>
+</p>
+<% end %>
+
+<%= link_to 'Register', poker_register_path%>
+
+<% if @user == nil
+	@user = User.new
+	@user[:name] = 'd'
+	@user[:password] = "s"
+end
+%>
+
+<div class="index_form">
+	<%= form_for @user, :url => poker_tables_path do |f|%>
+	<fieldset>
+		<legend>
+			Enter your name and password
+		</legend>
+		<div>
+			<%= f.label :name%>:
+			<%= f.text_field :name%>
+		</div>
+		<div>
+			<%= f.label :password%>:
+			<%= f.password_field :password%>
+		</div>
+		<div>
+			<%= f.submit "Login"%>
+		</div>	</fieldset>
+	<% end %>
+</div>
+
+<p>
+	Find me in app/views/poker/index.html.erb
+</p>
