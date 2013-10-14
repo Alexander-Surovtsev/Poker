@@ -1,5 +1,9 @@
 Poker::Application.routes.draw do
+  resource :sessions, only: [:new, :create, :destroy]
+  
   resources :users
+    
+  post 'poker/index'
   
   get 'poker', to: "poker#index"
   
@@ -14,6 +18,8 @@ Poker::Application.routes.draw do
   get "poker/create_table"
 
   get "poker/game"
+  
+  get 'poker/signout', to: "poker#sign_out"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,4 +1,7 @@
 def get_user_by_cookies(cookies)
+  if cookies == nil
+    return nil
+  end
   @user = User.find_by_name_and_password(cookies[:name], cookies[:password])
   return @user
 end
@@ -15,7 +18,7 @@ def set_cookies(cookies, user)
   cookies[:password] = user[:password]
 end
 
-def check_name(name)
+def checkName(name)
   @user = User.find_by_name(name)
   return @user
 end

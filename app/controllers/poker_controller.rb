@@ -1,19 +1,13 @@
 class PokerController < ApplicationController
-  require 'WorkWithCookies.rb'
+#  require 'WorkWithCookies.rb'
   
   def index
-#    @user = User.new
-#    if cookies[:name] and cookies[:password]
-#      @user[:name] = cookies[:name]
-#      @user[:password] = cookies[:password]
-#    else
-#      @user[:name] = "Name"
-#      @user[:password] = "Password"
-#    end
-    @user = get_user_by_cookies(cookies)
+    @user = User.find_by_name_and_password(cookies[:name], cookies[:password])
+#    @user = get_user_by_cookies(cookies)
+#    @user = nil
     respond_to do |format|
-      format.html
-      format.json { render json: @user }
+      format.html 
+      format.json { render json: @user}
     end
   end
 
@@ -25,63 +19,89 @@ class PokerController < ApplicationController
     end
   end
 
+  def get_user_by_cookies(cookies)
+    @user = User.find_by_name_and_password(cookies[:name], cookies[:password])
+    return @user
+  end
+
+  def checkName(name)
+    @user = User.find_by_name(name)
+    return @user
+  end
+
+  def set_cookies(cookies, user)
+    cookies[:name] = user[:name]
+    cookies[:password] = user[:password]
+  end
+  
+  def create_user(name, password)
+    @user = User.new
+    @user[:name] = name
+    @user[:password] = password
+    return @user    
+  end
+  
+  def tryLogin(cookies)
+    @user = get_user_by_cookies(cookies)
+    if (@user != nil)
+      @text = "loggined #{@user[:name]}"
+    else
+      respond_to do |format|
+        format.html { redirect_to(poker_index_path, :notice => "Please, try login again")}
+        format.xml { head :ok}
+      end
+    end
+  end
+  
+  def check_password_and_confirmation(password, confirmation)
+    return (password != nil and password == confirmation)
+  end
+
   def tables
     if (params[:user] != nil)
       @par = params[:user]
-      @user = User.new
-      @user[:name] = @par[:name]
-      if (@par[:password_confirmation] != nil)
-        if (@par[:password] == @par[:password_confirmation])
-          @user[:password] = @par[:password]
-          usr = check_name(@par[:name])#User.find_by_name(@par[:name])
-          if usr !=  nil
-            respond_to do |format|
-              format.html { redirect_to(poker_register_path, :notice => "Incorrect name")}
-              format.xml { head :ok}
-            end
-            return
-          end
+
+      if checkName(@par[:name]) != nil
+        respond_to do |format|
+          format.html { redirect_to(poker_register_path, :notice => "Incorrect name")}
+          format.xml { head :ok}
+        end
+        return
+      end
+
+      if check_password_and_confirmation(@par[:password], @par[:password_confirmation])
+        @user = create_user(@par[:name], @par[:password])
+        if @user.save
+          set_cookies(cookies, @user)
           respond_to do |format|
-            if @user.save
-              set_cookies(cookies, @user)
-              format.html { redirect_to(poker_tables_path, :notice => "You are loggin as #{@user[:name]}")}
-              format.xml { head :ok}
-            else
-              format.html { redirect_to(poker_register_path, :notice => "You are not registred")}
-              format.xml { head :ok}
-            end
+            format.html { redirect_to(poker_tables_path, :notice => "You are loggin as #{@user[:name]}")}
+            format.xml { head :ok}
           end
           return
         else
-          @text = "1"
+          @notice = "You are not registered"
         end
       else
-        respond_to do |format|
-          if (@par[:password] != nil)
-            @user = User.find_by_name_and_password(@par[:name], @par[:password])
-            if @user != nil
-              cookies[:name] = @user[:name]
-              cookies[:password] = @user[:password]
-              format.html { redirect_to(poker_tables_path, :notice => "You are loggin as #{@user[:name]}")}
-              format.xml { head :ok}
-            else
-              format.html { redirect_to(poker_index_path, :notice => "You are not loggin")}
-              format.xml { head :ok}
-            end
-          end
-        end
+        @notice = "Passwords are not equals"
       end
-    else
-      @user = get_user_by_cookies(cookies)
-      if (@user != nil)
-        @text = "loggined #{@user[:name]}"
-      else
-        respond_to do |format|
-          format.html { redirect_to(poker_index_path, :notice => "Please, try login again")}
-          format.xml { head :ok}
-        end
+      respond_to do |format|
+        format.html { redirect_to(poker_register_path, :notice => @notice)}
+        format.xml { head :ok}
       end
+      return
     end
+  end
+#    else
+#      @user = get_user_by_cookies(cookies)
+#      if (@user != nil)
+#        @text = "loggined #{@user[:name]}"
+#      else
+#        respond_to do |format|
+#          format.html { redirect_to(poker_index_path, :notice => "Please, try login again")}
+#          format.xml { head :ok}
+#        end
+#      end
+#    end
 
   # respond_to do |format|
   # # if @userto[:password] == @user[:password_confirmation]
@@ -91,11 +111,18 @@ class PokerController < ApplicationController
   #
   # # end
   # end
-  end
 
   def create_table
   end
 
   def game
   end
+  
+  def sign_out
+    cookies.delete domain: 'localhost'
+    respond_to do |format|
+      format.html {redirect_to(poker_index_path, :notice => "You are signed out")}
+      format.xml {head :ok}
+    end
+  end  
 end

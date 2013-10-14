@@ -6,17 +6,16 @@
 </p>
 <% end %>
 
-<%= link_to 'Register', poker_register_path%>
-
-<% if @user == nil
+<% if (@user == nil) or (@user[:name] == nil)
 	@user = User.new
 	@user[:name] = 'd'
 	@user[:password] = "s"
-end
 %>
 
+<%= link_to 'Register', poker_register_path%>
+
 <div class="index_form">
-	<%= form_for @user, :url => poker_tables_path do |f|%>
+	<%= form_for @user, :url => poker_index_path do |f|%>
 	<fieldset>
 		<legend>
 			Enter your name and password
@@ -34,6 +33,14 @@ end
 		</div>	</fieldset>
 	<% end %>
 </div>
+<%
+else%>
+<p>
+	You are loggined as <% @user[:name]%>
+</p>
+#<%= link_to 'Sign out', poker_signout_path%>
+#<%
+end%>
 
 <p>
 	Find me in app/views/poker/index.html.erb
