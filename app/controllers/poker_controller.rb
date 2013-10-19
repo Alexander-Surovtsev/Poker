@@ -1,15 +1,15 @@
 class PokerController < ApplicationController
 #  require 'WorkWithCookies.rb'
   
-  def index
-    @user = User.find_by_name_and_password(cookies[:name], cookies[:password])
-#    @user = get_user_by_cookies(cookies)
-#    @user = nil
-    respond_to do |format|
-      format.html 
-      format.json { render json: @user}
-    end
-  end
+#  def index
+#    @user = User.find_by_name_and_password(cookies[:name], cookies[:password])
+##    @user = get_user_by_cookies(cookies)
+##    @user = nil
+#    respond_to do |format|
+#      format.html 
+#      format.json { render json: @user}
+#    end
+#  end
 
   def register
     @user = User.new
@@ -29,10 +29,10 @@ class PokerController < ApplicationController
     return @user
   end
 
-  def set_cookies(cookies, user)
-    cookies[:name] = user[:name]
-    cookies[:password] = user[:password]
-  end
+#  def set_cookies(cookies, user)
+#    cookies[:name] = user[:name]
+#    cookies[:password] = user[:password]
+#  end
   
   def create_user(name, password)
     @user = User.new
@@ -41,17 +41,17 @@ class PokerController < ApplicationController
     return @user    
   end
   
-  def tryLogin(cookies)
-    @user = get_user_by_cookies(cookies)
-    if (@user != nil)
-      @text = "loggined #{@user[:name]}"
-    else
-      respond_to do |format|
-        format.html { redirect_to(poker_index_path, :notice => "Please, try login again")}
-        format.xml { head :ok}
-      end
-    end
-  end
+#  def tryLogin(cookies)
+#    @user = get_user_by_cookies(cookies)
+#    if (@user != nil)
+#      @text = "loggined #{@user[:name]}"
+#    else
+#      respond_to do |format|
+#        format.html { redirect_to(poker_index_path, :notice => "Please, try login again")}
+#        format.xml { head :ok}
+#      end
+#    end
+#  end
   
   def check_password_and_confirmation(password, confirmation)
     return (password != nil and password == confirmation)
@@ -72,11 +72,13 @@ class PokerController < ApplicationController
       if check_password_and_confirmation(@par[:password], @par[:password_confirmation])
         @user = create_user(@par[:name], @par[:password])
         if @user.save
-          set_cookies(cookies, @user)
-          respond_to do |format|
-            format.html { redirect_to(poker_tables_path, :notice => "You are loggin as #{@user[:name]}")}
-            format.xml { head :ok}
-          end
+          sign_in @user
+          redirect_to poker_index_path
+#          set_cookies(cookies, @user)
+#          respond_to do |format|
+#            format.html { redirect_to(poker_tables_path, :notice => "You are loggin as #{@user[:name]}")}
+#            format.xml { head :ok}
+#          end
           return
         else
           @notice = "You are not registered"

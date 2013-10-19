@@ -6,14 +6,19 @@
 </p>
 <% end %>
 
+
+<!--
 <% if (@user == nil) or (@user[:name] == nil)
 	@user = User.new
-	@user[:name] = 'd'
+	@user[:name] = 'dno'
 	@user[:password] = "s"
 %>
+-->
+
+
 
 <%= link_to 'Register', poker_register_path%>
-
+<!--
 <div class="index_form">
 	<%= form_for @user, :url => poker_index_path do |f|%>
 	<fieldset>
@@ -33,11 +38,21 @@
 		</div>	</fieldset>
 	<% end %>
 </div>
+-->
+
 <%
-else%>
-<p>
-	You are loggined as <% @user[:name]%>
-</p>
+	if signed_in?
+%>
+	<p>you are signed in</p>
+
+<%	
+	else
+%>
+	<p>you are not signed yet</p>
+<%	
+	end
+%>
+
 #<%= link_to 'Sign out', poker_signout_path%>
 #<%
 end%>

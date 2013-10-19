@@ -1,0 +1,112 @@
+[33mcommit 0494f2d0d2a313be7ceaf118af4f6293e0d8e6d4[m
+Author: Alexander <alexandr_surovtsev@mail.ru>
+Date:   Mon Oct 14 00:08:56 2013 +0400
+
+    initial commit again
+
+[1mdiff --git a/Gemfile b/Gemfile[m
+[1mnew file mode 100644[m
+[1mindex 0000000..293cb17[m
+[1m--- /dev/null[m
+[1m+++ b/Gemfile[m
+[36m@@ -0,0 +1,38 @@[m
+[32m+[m[32msource 'https://rubygems.org'[m
+[32m+[m
+[32m+[m[32mgem 'rails', '3.2.1'[m
+[32m+[m
+[32m+[m[32m# Bundle edge Rails instead:[m
+[32m+[m[32m# gem 'rails', :git => 'git://github.com/rails/rails.git'[m
+[32m+[m
+[32m+[m[32mgem 'sqlite3'[m
+[32m+[m
+[32m+[m
+[32m+[m[32m# Gems used only for assets and not required[m
+[32m+[m[32m# in production environments by default.[m
+[32m+[m[32mgroup :assets do[m
+[32m+[m[32m  gem 'sass-rails',   '~> 3.2.3'[m
+[32m+[m[32m  gem 'coffee-rails', '~> 3.2.1'[m
+[32m+[m
+[32m+[m[32m  # See https://github.com/sstephenson/execjs#readme for more supported runtimes[m
+[32m+[m[32m  # gem 'therubyracer'[m
+[32m+[m
+[32m+[m[32m  gem 'uglifier', '>= 1.0.3'[m
+[32m+[m[32mend[m
+[32m+[m
+[32m+[m[32mgem 'jquery-rails'[m
+[32m+[m
+[32m+[m[32m# To use ActiveModel has_secure_password[m
+[32m+[m[32m# gem 'bcrypt-ruby', '~> 3.0.0'[m
+[32m+[m
+[32m+[m[32m# To use Jbuilder templates for JSON[m
+[32m+[m[32m# gem 'jbuilder'[m
+[32m+[m
+[32m+[m[32m# Use unicorn as the web server[m
+[32m+[m[32m# gem 'unicorn'[m
+[32m+[m
+[32m+[m[32m# Deploy with Capistrano[m
+[32m+[m[32m# gem 'capistrano'[m
+[32m+[m
+[32m+[m[32m# To use debugger[m
+[32m+[m[32m# gem 'ruby-debug19', :require => 'ruby-debug'[m
+[1mdiff --git a/Gemfile.lock b/Gemfile.lock[m
+[1mnew file mode 100644[m
+[1mindex 0000000..17644ec[m
+[1m--- /dev/null[m
+[1m+++ b/Gemfile.lock[m
+[36m@@ -0,0 +1,110 @@[m
+[32m+[m[32mGEM[m
+[32m+[m[32m  remote: https://rubygems.org/[m
+[32m+[m[32m  specs:[m
+[32m+[m[32m    actionmailer (3.2.1)[m
+[32m+[m[32m      actionpack (= 3.2.1)[m
+[32m+[m[32m      mail (~> 2.4.0)[m
+[32m+[m[32m    actionpack (3.2.1)[m
+[32m+[m[32m      activemodel (= 3.2.1)[m
+[32m+[m[32m      activesupport (= 3.2.1)[m
+[32m+[m[32m      builder (~> 3.0.0)[m
+[32m+[m[32m      erubis (~> 2.7.0)[m
+[32m+[m[32m      journey (~> 1.0.1)[m
+[32m+[m[32m      rack (~> 1.4.0)[m
+[32m+[m[32m      rack-cache (~> 1.1)[m
+[32m+[m[32m      rack-test (~> 0.6.1)[m
+[32m+[m[32m      sprockets (~> 2.1.2)[m
+[32m+[m[32m    activemodel (3.2.1)[m
+[32m+[m[32m      activesupport (= 3.2.1)[m
+[32m+[m[32m      builder (~> 3.0.0)[m
+[32m+[m[32m    activerecord (3.2.1)[m
+[32m+[m[32m      activemodel (= 3.2.1)[m
+[32m+[m[32m      activesupport (= 3.2.1)[m
+[32m+[m[32m      arel (~> 3.0.0)[m
+[32m+[m[32m      tzinfo (~> 0.3.29)[m
+[32m+[m[32m    activeresource (3.2.1)[m
+[32m+[m[32m      activemodel (= 3.2.1)[m
+[32m+[m[32m      activesupport (= 3.2.1)[m
+[32m+[m[32m    activesupport (3.2.1)[m
+[32m+[m[32m      i18n (~> 0.6)[m
+[32m+[m[32m      multi_json (~> 1.0)[m
+[32m+[m[32m    arel (3.0.2)[m
+[32m+[m[32m    builder (3.0.4)[m
+[32m+[m[32m    coffee-rails (3.2.2)[m
+[32m+[m[32m      coffee-script (>= 2.2.0)[m
+[32m+[m[32m      railties (~> 3.2.0)[m
+[32m+[m[32m    coffee-script (2.2.0)[m
+[32m+[m[32m      coffee-script-source[m
+[32m+[m[32m      execjs[m
+[32m+[m[32m    coffee-script-source (1.6.3)[m
+[32m+[m[32m    erubis (2.7.0)[m
+[32m+[m[32m    execjs (2.0.2)[m
+[32m+[m[32m    hike (1.2.3)[m
+[32m+[m[32m    i18n (0.6.5)[m
+[32m+[m[32m    journey (1.0.4)[m
+[32m+[m[32m    jquery-rails (3.0.4)[m
+[32m+[m[32m      railties (>= 3.0, < 5.0)[m
+[32m+[m[32m      thor (>= 0.14, < 2.0)[m
+[32m+[m[32m    json (1.8.0)[m
+[32m+[m[32m    mail (2.4.4)[m
+[32m+[m[32m      i18n (>= 0.4.0)[m
+[32m+[m[32m      mime-types (~> 1.16)[m
+[32m+[m[32m      treetop (~> 1.4.8)[m
+[32m+[m[32m    mime-types (1.25)[m
+[32m+[m[32m    multi_json (1.8.1)[m
+[32m+[m[32m    polyglot (0.3.3)[m
+[32m+[m[32m    rack (

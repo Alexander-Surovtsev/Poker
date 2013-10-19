@@ -20,6 +20,11 @@ Poker::Application.routes.draw do
   get "poker/game"
   
   get 'poker/signout', to: "poker#sign_out"
+  
+  match '/signin', to: 'sessions#new', via: 'get'
+  
+  match '/signup',  to: 'users#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
