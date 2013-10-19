@@ -71,6 +71,7 @@ class PokerController < ApplicationController
 
       if check_password_and_confirmation(@par[:password], @par[:password_confirmation])
         @user = create_user(@par[:name], @par[:password])
+        @user.prepare_to_save
         if @user.save
           sign_in @user
           redirect_to poker_index_path

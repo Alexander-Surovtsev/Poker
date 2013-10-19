@@ -2,7 +2,11 @@ module SessionsHelper
   
   def sign_in(user)
     cookies[:name] = user.name
-    cookies[:password] = user.password
+    user.remember_token = user.generate_remember_token
+    user.save
+#    user.token = user.generate_remember_token
+    user.update_attributes(:remember_token => user.remember_token)
+    cookies[:password] = user.remember_token
     self.current_user = user
   end
 
@@ -11,7 +15,8 @@ module SessionsHelper
   end
   
    def current_user
-    @current_user ||= User.find_by_name_and_password(cookies[:name], cookies[:password])
+#    @current_user ||= User.find_by_name_and_remember_token(cookies[:name], cookies[:password])
+    @current_user ||= User.find_by_name_and_remember_token(cookies[:name], cookies[:password])
   end
 
   def signed_in?

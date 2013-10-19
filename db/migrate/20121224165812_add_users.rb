@@ -9,10 +9,10 @@ def change
   end
 end
 
-/  def up
+  def up
   end
 
   def down
   end
-/
+
 end
