@@ -24,15 +24,15 @@ class User < ActiveRecord::Base
     return false
    end
    
-  def generate_remember_token
+#  def generate_remember_token
 #    self.remember_token = SecureRandom.urlsafe_base64
-    return "afsf" + SecureRandom.urlsafe_base64
-  end
+#    return "afsf" + SecureRandom.urlsafe_base64
+#  end
 
   def prepare_to_save
     self.salt = generate_salt
     self.password = encrypt_password(self.password, self.salt)
-    self.remember_token = generate_remember_token
+#    self.remember_token = generate_remember_token
   end
   
   def encrypt_password(pass, salt)
@@ -44,29 +44,4 @@ class User < ActiveRecord::Base
   def generate_salt
     return rand.to_s
   end
-
-#   def password_must_be_present(password, salt)
-#     Digest::SHA2.hexdigest(password + "wibble" + salt)
-#   end
- 
-#   def password=(password)
-#     @password = password
- 
-#     if password.present?
-#       generate_salt
-#       self.password = self.class.encrypt_password(password, salt)
-#     end
-#   end
-     
-#   private
-   
-#     def password_must_be_present
-#       errors.add(:password, "Missing password") unless  :password.present?
-#     end
-
-/     
-     def generate_salt
-       self.salt = self.object_id.to_s + rand.to_s
-     end
-/
 end

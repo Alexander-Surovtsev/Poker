@@ -3,21 +3,17 @@ Poker::Application.routes.draw do
   
   resources :users
     
-  post 'poker/index'
-  
-  get 'poker', to: "poker#index"
-  
-  get "poker/index"
+  get 'index', to: "poker#index"
 
-  get "poker/register"
+  get "register", to: "poker#register"
 
-  post "poker/tables"
+#  post "poker/tables"
 
-  get "poker/tables"
+#  get "poker/tables"
 
-  get "poker/create_table"
+#  get "poker/create_table"
 
-  get "poker/game"
+#  get "poker/game"
   
   get 'poker/signout', to: "poker#sign_out"
   
@@ -25,6 +21,7 @@ Poker::Application.routes.draw do
   
   match '/signup',  to: 'users#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  match '/poker/notification', to: 'sessions#notification'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

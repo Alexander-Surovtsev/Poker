@@ -1,0 +1,26 @@
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type = "text/javascript">
+
+	function sendGetRequest() {
+		$.get(
+			"<% poker_notification_path %>"			
+		);
+	}
+	
+<%
+if signed_in?
+%>
+	setInterval("sendGetRequest()", 3000);
+<%
+else
+%>
+//	alert("aaaa");
+<%
+end
+%>
+</script>
+<!--
+		<button onClick = "sendGetRequest()">SendRequest</button>
+-->
+
+
