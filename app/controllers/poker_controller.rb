@@ -29,6 +29,7 @@ class PokerController < ApplicationController
   end
 
   def tables
+    sign_out
     if (params[:user] != nil)
       @par = params[:user]
 
@@ -66,12 +67,13 @@ class PokerController < ApplicationController
 
   def game
   end
-  
+/
   def sign_out
     cookies.delete domain: 'localhost'
     respond_to do |format|
       format.html {redirect_to(index_path, :notice => "You are signed out")}
       format.xml {head :ok}
     end
-  end  
+  end
+/  
 end

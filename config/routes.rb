@@ -9,7 +9,7 @@ Poker::Application.routes.draw do
 
 #  post "poker/tables"
 
-#  get "poker/tables"
+  post "tables", to: "poker#tables"
 
 #  get "poker/create_table"
 
@@ -21,7 +21,7 @@ Poker::Application.routes.draw do
   
   match '/signup',  to: 'users#new'
   match '/signout', to: 'sessions#destroy', via: :delete
-  match '/poker/notification', to: 'sessions#notification'
+  match '/notification', to: 'sessions#notification'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
   end
   
   def destroy
-    cookies.delete(:name)
+    sign_out
 
     redirect_to signin_path
   end

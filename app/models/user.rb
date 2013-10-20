@@ -16,7 +16,10 @@ class User < ActiveRecord::Base
 #  before_save { |user| user.salt = generate_salt }
 #  before_save { |user| user.remember_token = user.generate_remember_token }
 #  before_save { |user| user.password = encrypt_password(user.password, user.salt) }
- 
+#  EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+  Name_RegEx = /^[a-zA-Z ]{3,30}/
+  validates :name, :format => Name_RegEx
+  
   def authenticate(pass)
     if (self.password == encrypt_password(pass, self.salt))
          return true
