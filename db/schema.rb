@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131019143511) do
+ActiveRecord::Schema.define(:version => 20131019181854) do
+
+  create_table "sessions", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "remember_token"
+    t.datetime "expire_date"
+  end
 
   create_table "users", :force => true do |t|
     t.string "name"

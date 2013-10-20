@@ -29,10 +29,6 @@ class User < ActiveRecord::Base
     return "afsf" + SecureRandom.urlsafe_base64
   end
 
-  def token=(token)
-    @token = token  
-  end
-  
   def prepare_to_save
     self.salt = generate_salt
     self.password = encrypt_password(self.password, self.salt)
