@@ -1,13 +1,6 @@
 Poker::Application.routes.draw do
-#  get "users/register"
-
-#  get "users/confirm_registration"
-
-#  get "tables/create"
-
-#  get "confirm_create"
-  
-  get "t", to: "table#table"
+  get "tables", to: "tables#index"
+  get "table", to: "tables#table"
 
   resource :sessions, only: [:new, :create, :destroy]
   
@@ -21,10 +14,6 @@ Poker::Application.routes.draw do
   
   post "confirm_creation_table", to: "tables#confirm_creation_table"
 
-#  get "poker/create_table"
-
-#  get "poker/game"
-  
   get 'signout', to: "poker#sign_out"
   
   match '/signin', to: 'sessions#new', via: 'get'

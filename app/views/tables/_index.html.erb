@@ -1,25 +1,33 @@
 <%
-tables = Table.all
+s = get_session
+if s != nil
+	%>
+	<p>not nil</p>
+	<%
+	tables = Table.where(":session_id == ?", s.id)
+else
+	%>
+	<p>nil</p>
+	<%
+	tables = Table.where("1 = 1")
+end
+%>
+
+<%
 if tables.length == 0
 %>
-<p>there is no tables</p>
+<p>there is no tables for you</p>
 <%
 else
 %>
-<%
-s = get_session
-%>
+
 <table class = "table_tables">
 	<tr>
-		<th>Description</th>		
+		<th>Tables</th>		
 	</tr>	
 	<% tables.each do |t| %>
-	<% if s != nil && s.id != t.session_id
-	     next
-	   end
-	%>
 	<tr>
-		<td><% t.name %></td>
+		<td><%= t.name.to_s %></td>
 	</tr>
 	<% end %>
 </table>

@@ -6,8 +6,6 @@
 </p>
 <% end %>
 
-<%= link_to 'Register', register_path%>
-
 <%
 	if signed_in?
 %>
@@ -19,16 +17,6 @@
 	<p>you are not signed yet</p>
 <%	
 	end
-%>
-
-<%= render 'tables/index'%>
-
-<%
-if signed_in?
-%>
-<%= render 'tables/create'%>
-<%
-end
 %>
 
 <p>

@@ -46,7 +46,7 @@ class UsersController < ApplicationController
         @user.prepare_to_save
         if @user.save
           sign_in @user
-          redirect_to index_path
+          redirect_to tables_path
           return
         else
           @notice = "You are not registered"
