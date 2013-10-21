@@ -9,34 +9,25 @@ class TablesController < ApplicationController
   
   def create
     @table = Table.new
-    respond_to do |format|
-      format.html
-      format.json { render json: @table }
-    end
   end
 
   def confirm_creation_table
-/
+
     s = get_session
     if s == nil
-      respond_to do |format|
-        format.html { redirect_to(index_path, :notice => "your session is expired")}
-        format.xml { head :ok}
-      end
+      @notice = "your session is expired"
+      redirect_to index_path
       return
     end
-/
-/    
+
+
     t = Table.where(:session_id => s.id)
     if t.length != 0
-      respond_to do |format|
-        format.html { redirect_to(index_path, :notice => "you are now in game")}
-        format.xml { head :ok}
-      end
+      @notice = "your session is expired"
+      redirect_to tables_path
       return
-
     end
-/    
+    
     table = Table.new
     table.name = params[:table][:name]
 #    table.session_id = s.id
