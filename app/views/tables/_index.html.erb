@@ -4,7 +4,7 @@ if s != nil
 	%>
 	<p>not nil</p>
 	<%
-	tables = Table.where(":session_id == ?", s.id)
+	tables = Table.where(":session_id = ?", s.id)
 else
 	%>
 	<p>nil</p>

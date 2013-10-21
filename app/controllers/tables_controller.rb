@@ -16,6 +16,7 @@ class TablesController < ApplicationController
   end
 
   def confirm_creation_table
+/
     s = get_session
     if s == nil
       respond_to do |format|
@@ -24,7 +25,8 @@ class TablesController < ApplicationController
       end
       return
     end
-    
+/
+/    
     t = Table.where(:session_id => s.id)
     if t.length != 0
       respond_to do |format|
@@ -32,11 +34,12 @@ class TablesController < ApplicationController
         format.xml { head :ok}
       end
       return
+
     end
-    
+/    
     table = Table.new
     table.name = params[:table][:name]
-    table.session_id = s.id
+#    table.session_id = s.id
     
     if table.save()
       redirect_to table_path
