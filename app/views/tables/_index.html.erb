@@ -1,0 +1,28 @@
+<%
+tables = Table.all
+if tables.length == 0
+%>
+<p>there is no tables</p>
+<%
+else
+%>
+<%
+s = get_session
+%>
+<table class = "table_tables">
+	<tr>
+		<th>Description</th>		
+	</tr>	
+	<% tables.each do |t| %>
+	<% if s != nil && s.id != t.session_id
+	     next
+	   end
+	%>
+	<tr>
+		<td><% t.name %></td>
+	</tr>
+	<% end %>
+</table>
+<%
+end
+%>

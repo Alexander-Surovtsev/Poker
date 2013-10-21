@@ -6,8 +6,8 @@
 </p>
 <% end %>
 
-<div class="index_form">
-	<%= form_for @user, :url => tables_path do |f|%>
+<div class="create_user_form">
+	<%= form_for @user, :url => confirm_registration_user_path do |f|%>
 	<fieldset>
 		<legend>
 			Enter your name and password

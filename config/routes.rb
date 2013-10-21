@@ -1,26 +1,37 @@
 Poker::Application.routes.draw do
+#  get "users/register"
+
+#  get "users/confirm_registration"
+
+#  get "tables/create"
+
+#  get "confirm_create"
+  
+  get "t", to: "table#table"
+
   resource :sessions, only: [:new, :create, :destroy]
   
   resources :users
     
   get 'index', to: "poker#index"
 
-  get "register", to: "poker#register"
+  get "register", to: "users#register"
 
-#  post "poker/tables"
-
-  post "tables", to: "poker#tables"
+  post "confirm_registration_user", to: "users#confirm_registration"
+  
+  post "confirm_creation_table", to: "tables#confirm_creation_table"
 
 #  get "poker/create_table"
 
 #  get "poker/game"
   
-  get 'poker/signout', to: "poker#sign_out"
+  get 'signout', to: "poker#sign_out"
   
   match '/signin', to: 'sessions#new', via: 'get'
   
   match '/signup',  to: 'users#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  
   match '/notification', to: 'sessions#notification'
 
   # The priority is based upon order of creation:

@@ -1,0 +1,12 @@
+<div class="create_user_form">
+	<%= form_for :table, :url => confirm_creation_table_path do |f|%>
+	<fieldset>
+		<div>
+			<%= f.label :name%>:
+			<%= f.text_field :name%>
+		</div>
+		<div>
+			<%= f.submit "Register"%>
+		</div>	</fieldset>
+	<% end %>
+</div>	

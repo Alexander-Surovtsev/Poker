@@ -21,6 +21,16 @@
 	end
 %>
 
+<%= render 'tables/index'%>
+
+<%
+if signed_in?
+%>
+<%= render 'tables/create'%>
+<%
+end
+%>
+
 <p>
 	Find me in app/views/index.html.erb
 </p>

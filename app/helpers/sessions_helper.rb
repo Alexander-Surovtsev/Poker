@@ -2,9 +2,6 @@ module SessionsHelper
   
   def sign_in(user)
     cookies[:name] = user.name
-#    user.remember_token = user.generate_remember_token
-#    user.save
-#    user.update_attributes(:remember_token => user.remember_token)
     s = Session.new
     s.remember_token = s.generate_remember_token()
     s.user_id = user.id
@@ -23,12 +20,12 @@ module SessionsHelper
     Session.where("expire_date <= ?", Time.now).delete_all  
   end
   
-  def get_session(current_user)
-    if current_user == nil
+  def get_session
+    if self.current_user == nil
       return
     end
-    s = Session.find_by_user_id_and_remember_token(current_user.id, cookies[:password])
-    if s.expire_date <= Time.now
+    s = Session.find_by_user_id_and_remember_token(self.current_user.id, cookies[:password])
+    if s== nil || s.expire_date <= Time.now
       return nil
     end
     return s
@@ -40,27 +37,22 @@ module SessionsHelper
   end
   
   def signed_in?
-    s = get_session(self.current_user)
+    s = get_session
     if s == nil
-#      @current_user = nil
       sign_out
+      return false
     else
       if s.expire_date <= Time.now
-#        s.destroy
         sign_out
-#        @current_user = nil
       end
       s.expire_date = 5.seconds.from_now
-#      s.expire_date = Time.now
       s.save
     end
-    return !(@current_user.nil?)
+    return true
   end
   
   def sign_out
     cookies.delete(:name)
-#    @current_user.remember_token = user.generate_remember_token
-#    user.save
     delete_expired_sessions
     @current_user = nil
   end
