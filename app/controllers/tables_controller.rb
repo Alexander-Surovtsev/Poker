@@ -33,7 +33,7 @@ class TablesController < ApplicationController
 #    table.session_id = s.id
     
     if table.save()
-      redirect_to table_path
+      redirect_to table_path+"?name="+table.name
       return
       
 #     respond_to do |format|

@@ -30,7 +30,7 @@ else
 	</tr>	
 	<% tables.each do |t| %>
 	<tr>
-		<td><%= t.name.to_s %></td>
+		<td><%= link_to t.name, table_path+"?name="+t.name%></td>
 	</tr>
 	<% end %>
 </table>
