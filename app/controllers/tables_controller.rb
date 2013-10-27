@@ -46,11 +46,40 @@ class TablesController < ApplicationController
   end
   
   def table
-    @table_name = params[:name]
-    return
-    t = Table.find_by_name(@table_name)
-    if t == nil
-      redirect_to tables_path
+    s = get_session
+    if s == nil
+      @notice = "your session is expired"
+      redirect_to index_path
+      return
     end
+
+    @table_name = params[:name]
+
+    
+    
   end
+  
+  def process_message
+    s = get_session
+    if s == nil
+      @notice = "your session is expired"
+      redirect_to index_path
+      return
+    end
+
+    
+  end 
+    
+  def get_messages
+    s = get_session
+    if s == nil
+      @notice = "your session is expired"
+      redirect_to index_path
+      return
+    end
+
+
+    
+  end     
+    
 end
