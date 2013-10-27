@@ -21,11 +21,11 @@ Poker::Application.routes.draw do
   match '/signup',  to: 'users#new'
   match '/signout', to: 'sessions#destroy', via: :delete
   
-  match '/notification', to: 'sessions#notification'
+  get '/notification', to: 'sessions#notification'
   
-  post '/send_mesage', to: 'tables#process_message'
+  get '/send_mesage', to: 'tables#process_message'
   
-  post '/get_messages', to: 'tables#get_messages'
+  get '/get_messages', to: 'tables#get_messages'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
