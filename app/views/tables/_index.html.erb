@@ -1,23 +1,5 @@
 <%
-s = get_session
-if s != nil
-	%>
-	<p>not nil</p>
-	<%
-	tables = Table.where(":session_id <> ?", s.id)
-else
-	%>
-	<p>nil</p>
-	<%
-	tables = Table.where("1 = 1")
-end
-
-
-tables = Table.all
-%>
-
-<%
-if tables.length == 0
+if @tables.length == 0
 %>
 <p>there is no tables for you</p>
 <%
@@ -28,9 +10,9 @@ else
 	<tr>
 		<th>Tables</th>		
 	</tr>	
-	<% tables.each do |t| %>
+	<% @tables.each do |t| %>
 	<tr>
-		<td><%= link_to t.name, table_path+"?name="+t.name%></td>
+		<td><%= link_to t, table_path+"?name="+t%></td>
 	</tr>
 	<% end %>
 </table>

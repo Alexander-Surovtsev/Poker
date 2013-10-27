@@ -1,6 +1,7 @@
 class TablesController < ApplicationController
   def index
-    @tables = User.all
+    gC = GameController.instance
+    @tables = gC.getRooms
     respond_to do |format|
       format.html
       format.json { render json: @tables }
@@ -21,28 +22,22 @@ class TablesController < ApplicationController
     end
 
 
-    t = Table.where(:session_id => s.id)
-    if t.length != 0
-      @notice = "your session is expired"
-      redirect_to tables_path
-      return
-    end
-    
-    table = Table.new
-    table.name = params[:table][:name]
-#    table.session_id = s.id
-    
-    if table.save()
-      redirect_to table_path+"?name="+table.name
-      return
-      
-#     respond_to do |format|
-#        format.html { redirect_to(table_path, :notice => "table is not created")}
-#        format.xml { head :ok}
-#      end
+#    t = Table.where(:session_id => s.id)
+#    if t.length != 0
+#      @notice = "you can not create more than one table"
+#      redirect_to tables_path
 #      return
+#    end
+    
+    gC = GameController.instance  
+#    table = Table.new
+#    table.name = params[:table][:name]
+    
+    if gC.addRoom(params[:table][:name], s.id)
+      redirect_to table_path+"?name="+params[:table][:name]
+      return
     else
-      respond do |format|
+      respond_to do |format|
         format.html { redirect_to(index_path, :notice => "table is not created")}
         format.xml { head :ok}
       end
@@ -52,6 +47,7 @@ class TablesController < ApplicationController
   
   def table
     @table_name = params[:name]
+    return
     t = Table.find_by_name(@table_name)
     if t == nil
       redirect_to tables_path

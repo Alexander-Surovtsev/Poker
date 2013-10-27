@@ -5,7 +5,7 @@ module SessionsHelper
     s = Session.new
     s.remember_token = s.generate_remember_token()
     s.user_id = user.id
-    s.expire_date = 5.seconds.from_now
+    s.expire_date = 30.seconds.from_now
     s.save()
     
     cookies[:password] = s.remember_token
@@ -45,7 +45,7 @@ module SessionsHelper
       if s.expire_date <= Time.now
         sign_out
       end
-      s.expire_date = 5.seconds.from_now
+      s.expire_date = 30.seconds.from_now
       s.save
     end
     return true
