@@ -10,18 +10,20 @@
 
 <script type = "text/javascript">
 	function sendMessage() {
-//		alert(document.getElementById('MessageToSend').value);
-		
-		
-		getMessages();
-	}
-
-	function getMessages() {
 		$.get(
 			'<% send_message_path %>',
 			{
 				name:'<%= @table_name%>',
 				message: document.getElementById('MessageToSend').value
+			}
+		)
+	}
+
+	function getMessages() {
+		$.get(
+			'<% get_messages_path %>',
+			{
+				name:'<%= @table_name%>',
 			},
 			onGetMessagesSucess
 		);
@@ -37,16 +39,10 @@ if signed_in?
 %>
 
 	<textarea id = 'Messages'></textarea>
+	<button onClick = 'getMessages()'>Get Messages</button>
 	<textarea id = 'MessageToSend'></textarea>
 	<button onClick = 'sendMessage()'>Send Message</button>
 
-
-<%
-else
-%>
-//	alert("aaaa");
 <%
 end
 %>
-
-<p>Find me in app/views/tables/table.html.erb</p>

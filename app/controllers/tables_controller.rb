@@ -70,8 +70,8 @@ class TablesController < ApplicationController
       redirect_to tables_path
     end
     gC = GameController.instance 
-    @room = params[:name]
-    @messages = gC.getMessages(s.id, @room)
+    @table_name = params[:name]
+    @messages = gC.getMessages(s.id, @table_name)
 
   end
   
@@ -84,8 +84,8 @@ class TablesController < ApplicationController
     end
     gC = GameController.instance 
     @message = params[:message]
-    @room = params[:name]
-    gC.sendMessage(s.id, @room, @message)
+    @table_name = params[:name]
+    gC.sendMessage(s.id, @table_name, @message)
     
   end 
         
@@ -97,8 +97,8 @@ class TablesController < ApplicationController
       return
     end
     gC = GameController.instance 
-    @room = params[:name]
-    @messages = gC.getMessages(s.id, @room)
+    @table_name = params[:name]
+    @messages = gC.getMessages(s.id, @table_name)
 
     return @messages
 #    respond_to do |format|
