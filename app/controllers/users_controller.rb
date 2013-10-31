@@ -55,7 +55,7 @@ class UsersController < ApplicationController
         @notice = "Passwords are not equals"
       end
       respond_to do |format|
-        format.html { redirect_to(user_register_path, :notice => @notice)}
+        format.html { redirect_to(register_path, :notice => @notice)}
         format.xml { head :ok}
       end
       return
