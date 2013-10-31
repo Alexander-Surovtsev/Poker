@@ -1,9 +1,12 @@
 <h1>Tables#table</h1>
 
-<%=
-	@table_name
-%>
+<p><%=	@table_name %></p>
 
+<p>
+<%=
+	@messages
+%>
+</p>
 
 <script type = "text/javascript">
 	function sendMessage() {
@@ -15,14 +18,15 @@
 
 	function getMessages() {
 		$.get(
-			'<% get_messages_path %>',
+			'<% send_message_path %>',
 			{
 				name:'<%= @table_name%>',
+				message: document.getElementById('MessageToSend').value
 			},
 			onGetMessagesSucess
 		);
 	}
-	
+
 	function onGetMessagesSucess(data) {
 		document.getElementById('Messages').value = data;
 	}

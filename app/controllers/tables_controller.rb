@@ -1,4 +1,6 @@
 class TablesController < ApplicationController
+#  layout false, :except => :index
+  
   def index
     gC = GameController.instance
     @tables = gC.getRooms
@@ -67,7 +69,10 @@ class TablesController < ApplicationController
     if not valid_name
       redirect_to tables_path
     end
-    
+    gC = GameController.instance 
+    @room = params[:name]
+    @messages = gC.getMessages(s.id, @room)
+
   end
   
   def process_message
@@ -79,8 +84,8 @@ class TablesController < ApplicationController
     end
     gC = GameController.instance 
     @message = params[:message]
-    @room = params[:room]
-    gc.sendMessage(s.id, @room, @message)
+    @room = params[:name]
+    gC.sendMessage(s.id, @room, @message)
     
   end 
         
@@ -92,15 +97,13 @@ class TablesController < ApplicationController
       return
     end
     gC = GameController.instance 
-    @room = params[:room]
-    @messages = gc.getMessages(s.id, @room)
+    @room = params[:name]
+    @messages = gC.getMessages(s.id, @room)
 
-
-    render :text => "Whatever you need to response" #in your controller
-    return
-    respond_to do |format|
-      format.js {render :json => @messsages.to_json }
-    end
+    return @messages
+#    respond_to do |format|
+#      format.js {render :json => "ss".to_json }
+#    end
     
   end    
     
