@@ -11,7 +11,7 @@
 <script type = "text/javascript">
 	function sendMessage() {
 		$.get(
-			'<% send_message_path %>',
+			'<%= send_message_path %>',
 			{
 				name:'<%= @table_name%>',
 				message: document.getElementById('MessageToSend').value
@@ -21,7 +21,7 @@
 
 	function getMessages() {
 		$.get(
-			'<% get_messages_path %>',
+			'<%= get_messages_path %>',
 			{
 				name:'<%= @table_name%>',
 			},

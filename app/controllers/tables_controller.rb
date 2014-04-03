@@ -86,7 +86,7 @@ class TablesController < ApplicationController
     @message = params[:message]
     @table_name = params[:name]
     gC.sendMessage(s.id, @table_name, @message)
-    
+    render "send_message"
   end 
         
   def get_messages
