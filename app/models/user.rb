@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   require 'digest/sha2'
+  
+  ActiveRecord::Base.logger = nil
 
 #  validates :id
  

@@ -6,6 +6,8 @@ Poker::Application.routes.draw do
   
   resources :users
     
+  get '', to: "poker#index"
+      
   get 'index', to: "poker#index"
 
   get "register", to: "users#register"

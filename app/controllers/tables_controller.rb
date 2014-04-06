@@ -86,8 +86,7 @@ class TablesController < ApplicationController
     @message = params[:message]
     @table_name = params[:name]
     gC.sendMessage(s.id, @table_name, @message)
-    render :layout => false
-    render "send_message"
+    render "send_message", :layout => false
   end 
         
   def get_messages
@@ -104,6 +103,8 @@ class TablesController < ApplicationController
     logger.debug "-------------------------------------------------------"
 
     render :layout => false
+    #render "get_messages"
+    
     
     logger.debug "-------------------------------------------------------"
     
