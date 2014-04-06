@@ -86,6 +86,7 @@ class TablesController < ApplicationController
     @message = params[:message]
     @table_name = params[:name]
     gC.sendMessage(s.id, @table_name, @message)
+    render :layout => false
     render "send_message"
   end 
         
@@ -100,6 +101,12 @@ class TablesController < ApplicationController
     @table_name = params[:name]
     @messages = gC.getMessages(s.id, @table_name)
 
+    logger.debug "-------------------------------------------------------"
+
+    render :layout => false
+    
+    logger.debug "-------------------------------------------------------"
+    
     return @messages
 #    respond_to do |format|
 #      format.js {render :json => "ss".to_json }

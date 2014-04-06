@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
   end
   
   def notification
-    logger.debug "yaaaz"
+    render :layout => false
     signed_in?
   end
   
