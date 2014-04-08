@@ -3,7 +3,7 @@ class TablesController < ApplicationController
   
   def index
     gC = GameController.instance
-    @tables = gC.getRooms
+    @tables = GameController.getRooms
     respond_to do |format|
       format.html
       format.json { render json: @tables }
@@ -31,11 +31,11 @@ class TablesController < ApplicationController
 #      return
 #    end
     
-    gC = GameController.instance  
+    #gC = GameController.instance  
 #    table = Table.new
 #    table.name = params[:table][:name]
     
-    if gC.addRoom(params[:table][:name], s.id)
+    if GameController.addRoom(params[:table][:name], s.id)
       redirect_to table_path+"?name="+params[:table][:name]
       return
     else
@@ -55,11 +55,11 @@ class TablesController < ApplicationController
       return
     end
 
-    gC = GameController.instance  
+    #gC = GameController.instance  
 
     @table_name = params[:name]
     
-    @tables = gC.getRooms
+    @tables = GameController.getRooms
     valid_name = false
     @tables.each do |table|
       if table == @table_name
@@ -69,9 +69,9 @@ class TablesController < ApplicationController
     if not valid_name
       redirect_to tables_path
     end
-    gC = GameController.instance 
+    #gC = GameController.instance 
     @table_name = params[:name]
-    @messages = gC.getMessages(s.id, @table_name)
+    @messages = GameController.getMessages(s.id, @table_name)
 
   end
   
@@ -85,7 +85,12 @@ class TablesController < ApplicationController
     gC = GameController.instance 
     @message = params[:message]
     @table_name = params[:name]
-    gC.sendMessage(s.id, @table_name, @message)
+    logger.debug ">>>>>>>>>>>>>>>>>>>>"
+      logger.debug "roomId " + @table_name
+      logger.debug "messages" + @message
+    logger.debug ">>>>>>>>>>>>>>>>>>>>"
+
+    GameController.sendMessage(s.id, @table_name, @message)
     render "send_message", :layout => false
   end 
         
@@ -98,12 +103,14 @@ class TablesController < ApplicationController
     end
     gC = GameController.instance 
     @table_name = params[:name]
-    @messages = gC.getMessages(s.id, @table_name)
+    @messages = GameController.getMessages(s.id, @table_name)
 
     logger.debug "-------------------------------------------------------"
 
-    render :layout => false
-    #render "get_messages"
+
+      logger.debug "messages " + @messages
+      render :layout => false
+      #render "get_messages"
     
     
     logger.debug "-------------------------------------------------------"

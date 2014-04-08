@@ -99,25 +99,25 @@ module GameLogic
   class GameController# < ApplicationController
     include Singleton
     
-    @rooms 
-    @players
-    @initialPlayerID
+    @@rooms 
+    @@players
+    @@initialPlayerID
     
     def initialize
-      @rooms = Array.new
-      @players = Array.new
-      @initialPlayerID = 1000
+      @@rooms = Array.new
+      @@players = Array.new
+      @@initialPlayerID = 1000
     end
     
     def createPlayer(name, email, money = 50000)  #возвращает playerID
-      u = Player.new(@initialPlayerID, name, email, money)
-      @initialPlayerID = @initialPlayerID + 1
-      @players << u
-      @initialPlayerID-1
+      u = Player.new(@@initialPlayerID, name, email, money)
+      @@initialPlayerID = @@initialPlayerID + 1
+      @@players << u
+      return @@initialPlayerID-1
     end
     
-    def printAllPlayers
-      @players.each do |player|
+    def self.printAllPlayers
+      @@players.each do |player|
         puts "player id = #{player.getId}, nickname = #{player.getNickname}"
       end
     end
@@ -128,21 +128,21 @@ module GameLogic
     
     
     
-    def validPlayerId(id)
+    def self.validPlayerId(id)
       return true
       validId = false
-      @players.each do |player|
+      @@players.each do |player|
         if player.getId == id
           validId = true
         end
       end
-      validId
-      
+      validId      
     end
     
-    def validRoomId(id)
+    def self.validRoomId(id)
+      return true
       validId = false
-      @rooms.each do |room|
+      @@rooms.each do |room|
         if room.getId == id
           validId = true
         end
@@ -151,9 +151,9 @@ module GameLogic
       
     end
     
-    def findRoom(id)
+    def self.findRoom(id)
       r = nil
-      @rooms.each do |room|
+      @@rooms.each do |room|
         if room.getId == id
           r = room
         end 
@@ -161,28 +161,28 @@ module GameLogic
       r
     end
     
-    def sendMessage(playerId, roomId, message)
+    def self.sendMessage(playerId, roomId, message)
       if validPlayerId(playerId) and validRoomId(roomId)
         room = findRoom(roomId)
         room.sendMessage(playerId, message)
       end
     end
     
-    def getMessages(playerId, roomId)
+    def self.getMessages(playerId, roomId)
       if validPlayerId(playerId) and validRoomId(roomId)
         room = findRoom(roomId)
         room.getMessages(playerId)
       end
     end
     
-    def addRoom(name, creatorId)
+    def self.addRoom(name, creatorId)
       
       if validPlayerId(creatorId) == true and not validRoomId(name)
         r = Room.new(name, creatorId)
-        @rooms << r
-        true
+        @@rooms << r
+        return true
       else
-        false
+        return false
       end
     end
     
@@ -214,9 +214,9 @@ module GameLogic
       @players << user
     end
     
-    def getRooms
+    def self.getRooms
     names = Array.new
-    @rooms.each do |room|
+    @@rooms.each do |room|
       names << room.getId
     end
       names #списком
